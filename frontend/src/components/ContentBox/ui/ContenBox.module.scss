@@ -1,0 +1,35 @@
+.contentBox {
+  border-radius: 12px;
+  border: var(--secondary-black);
+  padding: 16px 16px 0 16px;
+  background: var(--white);
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+  color: var(--secondary-black);
+  margin-bottom: 16px;
+  border-bottom: var(--border);
+  padding-bottom: 5px;
+}
+
+.altStatus {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 291px;
+  height: 431px;
+
+  span {
+    margin-left: -9px !important;
+    margin-top: -28px !important;
+  }
+}
+
+.noBorder {
+  padding-bottom: 16px;
+  margin-top: 20px;
+  border: none;
+}

@@ -1,0 +1,18 @@
+.profileInner {
+  display: flex;
+  column-gap: 15px;
+}
+
+.profileWrapper{
+  display: flex;
+  width: 640px;
+  min-height: 500px;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.infoWrapper{
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}

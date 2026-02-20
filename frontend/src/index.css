@@ -1,0 +1,31 @@
+:root {
+  --primary-black: #2c2c2c;
+  --secondary-black: #3f3f3f;
+  --black-bg: #0d1117;
+  --primary-yellow: #ff9900;
+  --white: #ffffff;
+  --border: 1px solid rgb(232, 234, 237);
+  --positive-bg: rgb(230, 244, 234);
+  --positive-color: #037b66;
+  --negative-bg: rgba(252, 232, 230);
+  --negative-color: #d60a22;
+  --shadow: 0px 16px 30px -10px rgba(70, 96, 187, 0.198567);
+  --skeleton-color: #e6e6e6;
+  --skeleton-shadow: rgba(0 0 0 / 20%);
+  --light-gray: #e6e4e3;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  font-family: "Poppins", sans-serif;
+  place-items: center;
+}
+
+#root {
+  width: 100%;
+}
+
+abbr[title] {
+  text-decoration: none;
+}

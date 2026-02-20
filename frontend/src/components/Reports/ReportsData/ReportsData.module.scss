@@ -1,0 +1,40 @@
+.table{
+  width: 608px;
+  margin-top: 10px;
+
+  thead{
+    font-size: 15px;
+    border-bottom: var(--border);
+
+    th{
+      font-weight: 500;
+      padding: 5px;
+      text-align: center;
+
+      &:first-child{
+        text-align: start;
+        font-weight: 600;
+      }
+    }
+  }
+
+  tbody{
+    tr{
+      border-bottom: var(--border);
+      &:first-child{
+        background: var(--light-gray);
+        font-weight: 700;
+      }
+
+      td{
+        font-size: 15px;
+        font-weight: 500;
+        padding: 5px;
+
+        &:first-child{
+          text-align: start;
+        }
+      }
+    }
+  }
+}

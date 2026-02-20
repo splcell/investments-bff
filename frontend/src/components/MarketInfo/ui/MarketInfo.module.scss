@@ -1,0 +1,59 @@
+.wrapper {
+  display: flex;
+  column-gap: 20px;
+  padding: 5px 10px;
+  border-top: var(--border);
+  border-bottom: var(--border);
+
+  div {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+  }
+}
+
+.logo {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+}
+
+.companyName {
+  width: 250px;
+  font-size: 18px;
+}
+
+.price,
+.changePercantage,
+.change {
+  font-size: 18px;
+}
+
+.changePercantage {
+  padding: 0 5px;
+  border-radius: 8px;
+}
+
+.positivePrice {
+  color: var(--positive-color);
+}
+
+.negativePrice {
+  color: var(--negative-color);
+}
+
+.positive {
+  background: var(--positive-bg);
+  color: var(--positive-color);
+}
+
+.negative {
+  background: var(--negative-bg);
+  color: var(--negative-color);
+}
+
+.textHidden {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

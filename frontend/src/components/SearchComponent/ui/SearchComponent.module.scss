@@ -1,0 +1,35 @@
+.searchWrapper {
+  position: relative;
+  display: flex;
+  column-gap: 10px;
+
+  input {
+    width: 600px;
+    height: 30px;
+    background: var(--white);
+    border-radius: 10px;
+    padding: 0 10px;
+  }
+}
+
+.triggers {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+.trigger {
+  font-size: 14px;
+  transition: 0.5s all;
+}
+
+.activeTrigger {
+  font-size: 14px;
+  padding: 0 5px;
+  border-radius: 6px;
+  background: var(--primary-yellow);
+  transition: 0.5s all;
+}

@@ -1,0 +1,21 @@
+.settingsWrapper{
+  display: flex;
+  height:85vh;
+  justify-content: center;
+  flex-direction: column;
+  row-gap: 10px;
+
+  div{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+
+    label{
+      font-weight: 500;
+    }
+
+    span{
+      font-size: 12px;
+    }
+  }
+}
