@@ -79,10 +79,10 @@
 
 ```bash
 # Клонирование репозитория
-git clone https://github.com/yourusername/investment-dashboard.git
+git clone https://github.com/yourusername/investments-bff.git
 
 # Переход в директорию проекта
-cd investment-dashboard
+cd investments-bff
 
 # Установка зависимостей для бэкенда
 cd backend
