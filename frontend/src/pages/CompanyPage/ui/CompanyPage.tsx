@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   useLazyGetCompanyInfoQuery,
   useLazyGetCompanyQuoteQuery,
@@ -12,9 +12,13 @@ import { Minmax } from "../../../components/Minmax";
 import { Reports } from "../../../components/Reports";
 import { Error } from "../../../components/Error";
 import { createError } from "../../../helpers/createError";
+import { Dividends } from "../../../components/Dividends";
+import { Description } from "../../../components/Description";
+import { CompanyNews } from "../../../components/News";
 
 export const CompanyPage = () => {
   const { ticker } = useParams();
+  const navigate = useNavigate();
   const [getCompanyInfo, { data, isLoading, error }] =
     useLazyGetCompanyInfoQuery();
   const [
@@ -23,26 +27,33 @@ export const CompanyPage = () => {
   ] = useLazyGetCompanyQuoteQuery();
 
   useEffect(() => {
-    if (!ticker) return;
+    if (!ticker) {
+      navigate("/not-found");
+      return;
+    }
 
     getCompanyInfo({ ticker });
     getCompanyQuote({ ticker });
   }, []);
 
   if (error) {
-    <Container>
-      <div className={styles.profileInner}>
-        <Error>{createError(error)}</Error>
-      </div>
-    </Container>;
+    return (
+      <Container>
+        <div className={styles.profileInner}>
+          <Error>{createError(error)}</Error>
+        </div>
+      </Container>
+    );
   }
 
   if (quoteError) {
-    <Container>
-      <div className={styles.profileInner}>
-        <Error>{createError(quoteError)}</Error>
-      </div>
-    </Container>;
+    return (
+      <Container>
+        <div className={styles.profileInner}>
+          <Error>{createError(quoteError)}</Error>
+        </div>
+      </Container>
+    );
   }
 
   return (
@@ -69,12 +80,22 @@ export const CompanyPage = () => {
                 isLoading={isLoading || quoteLoading}
               />
               {ticker && <Reports ticker={ticker} profile={data} />}
+              {ticker && <Dividends ticker={ticker} profile={data} />}
+              {ticker && <CompanyNews ticker={ticker} />}
             </>
           ) : (
             <Error>Company Data not Found</Error>
           )}
         </div>
-        <div className={styles.infoWrapper}></div>
+        <div className={styles.infoWrapper}>
+          {data && (
+            <Description
+              profile={data}
+              isLoading={isLoading}
+              error={createError(error)}
+            />
+          )}
+        </div>
       </div>
     </Container>
   );

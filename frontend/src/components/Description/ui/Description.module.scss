@@ -1,0 +1,22 @@
+.profileContent{
+  position: relative;
+  width: 350px;
+}
+
+.description{
+  font-size: 15px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  transition: .3s all;
+}
+
+.toggleDescription{
+  position: absolute;
+  top: 14px;
+  right: 34px;
+  cursor: pointer;
+}
+
+.rotate{
+  transform: rotate(180deg);
+}

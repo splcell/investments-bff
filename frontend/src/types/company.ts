@@ -1,3 +1,4 @@
+
 export type Company =  {
   symbol: string;
   marketCap: number;

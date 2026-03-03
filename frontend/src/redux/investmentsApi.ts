@@ -5,7 +5,8 @@ import type { User } from "../types/user";
 import type { Company } from "../types/company";
 import type { Quote } from "../types/quote";
 import type { FullReport } from "../types/report";
-import type { DividendsResponse } from "../types/dividends";
+import type { Dividend } from "../types/dividends";
+import type { News } from "../types/news";
 
 const baseAppUrl = "http://localhost:3000";
 
@@ -49,8 +50,12 @@ export const investmentsApi = createApi({
       query: ({ticker, period}) => `/company/${ticker}/reports?period=${period}`
     }),
 
-    getCompanyDividends: build.query<DividendsResponse, {ticker: string}>({
-      query: ({ticker}) => `/company/${ticker}/dividends`
+    getCompanyDividends: build.query<Dividend[], {ticker: string}>({
+      query: ({ticker}) => `/company/${ticker}/dividends/`
+    }),
+
+    getCompanyNews: build.query<News[], {ticker: string}>({
+      query: ({ticker}) => `/company/${ticker}/news`
     }),
 
     userRegister: build.mutation({
@@ -109,7 +114,8 @@ export const {
   useGetSearchNameResultsQuery,
   useGetCurrentUserQuery,
   useGetCompanyReportsQuery,
-  useGetCompanyDividendsQuery,
+  useGetCompanyNewsQuery,
+  useLazyGetCompanyDividendsQuery,
   useLazyGetCompanyInfoQuery,
   useLazyGetCompanyQuoteQuery,
   useUserRegisterMutation,

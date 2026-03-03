@@ -1,0 +1,27 @@
+.dividendsTable {
+  width: 100%;
+  thead {
+    background: var(--secondary-black);
+    color: var(--white);
+    position: sticky;
+    top: 0;
+  }
+  th, td {
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  td {
+    text-align: center;
+    border: var(--border);
+  }
+
+  // tbody{
+  //   tr{
+  //     &:first-child{
+  //       background: var(--primary-yellow);
+  //     }
+  //   }
+  // }
+}

@@ -74,9 +74,9 @@ export const getCompanyDividends = async(
       return next(new NotFoundError("Company Dividends not Found"))
     }
 
-    await cacheResponse(res, data)
+    await cacheResponse(res, data.results)
 
-    res.send(data)
+    res.send(data.results)
 
   } catch (error) {
     next(error)

@@ -1,0 +1,17 @@
+.paginationWrapper {
+  display: flex;
+  justify-content: center;
+  column-gap: 10px;
+  margin-top: 20px;
+
+  button{
+    padding: 0px 9px;
+  }
+}
+
+.active{
+  background: var(--primary-black);
+  color: var(--white);
+  border-radius: 6px;
+  font-weight: 600;
+}

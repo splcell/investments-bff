@@ -6,6 +6,7 @@ import { UserPage } from "../../../pages/UserPage";
 import { LoginPage } from "../../../pages/LoginPage";
 import { RegisterPage } from "../../../pages/RegisterPage";
 import { SettingsPage } from "../../../pages/SettingsPage";
+import { NotFound } from "../../../pages/404";
 
 export const AppRouter = () => {
   return (
@@ -16,8 +17,9 @@ export const AppRouter = () => {
       <Route path="/auth" element={<RegisterPage />} />
       <Route element={<PrivateRoute />}>
         <Route path="/cabinet" element={<UserPage />} />
-        <Route path="/cabinet/settings" element={<SettingsPage />}/>
+        <Route path="/cabinet/settings" element={<SettingsPage />} />
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
