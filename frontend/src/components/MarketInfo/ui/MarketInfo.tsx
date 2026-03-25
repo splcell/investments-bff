@@ -1,5 +1,7 @@
+import { useGetCurrentUserQuery } from "../../../redux/investmentsApi";
 import type { Company } from "../../../types/company";
 import type { Quote } from "../../../types/quote";
+import { Collection } from "../../Collection";
 import { Skeleton } from "../../Skeleton";
 import styles from "./MarketInfo.module.scss";
 import cn from "classnames";
@@ -11,9 +13,13 @@ interface MarketInfoProps {
 }
 
 export const MarketInfo = ({ profile, data, loading }: MarketInfoProps) => {
+  const { data: me, isLoading } = useGetCurrentUserQuery();
+
   if (loading) {
     return <Skeleton width={640} height={82} />;
   }
+
+  console.log(me, "me")
 
   return (
     <div className={styles.wrapper}>
@@ -63,6 +69,7 @@ export const MarketInfo = ({ profile, data, loading }: MarketInfoProps) => {
           </span>
         </div>
       </div>
+      {me && me._id && <Collection userId={me._id} profile={profile}/>}
     </div>
   );
 };

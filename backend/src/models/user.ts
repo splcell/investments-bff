@@ -3,14 +3,22 @@ import { Model, Schema, model } from "mongoose";
 import jwt from "jsonwebtoken";
 import NotAuthorizedError from "../errors/not-authorized-error";
 
+type Collect = {
+  symbol: string;
+  companyName: string;
+  currency: string;
+}
+
 interface User {
   email: string;
   password: string;
   username: string;
   created_at: Date;
   updated_at: Date;
+  userCollection: Collect[]
   generateAccessToken: () => string;
 }
+
 
 interface UserDoc extends Document, User {}
 
@@ -49,7 +57,15 @@ const userSchema = new Schema(
     username: {
       type: String,
       unique: [true, "Username must be uniq"],
-    }
+    },
+
+    userCollection: [
+      {
+        companyName: String,
+        currency: String,
+        symbol: String
+      }
+    ]
   },
   {
     timestamps: true,

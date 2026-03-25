@@ -63,6 +63,8 @@ export const Dividends = ({ ticker, profile }: DividendsProps) => {
     )
   }
 
+  console.log(data, 'data')
+
   return (
     <ContentBox title="Dividends" variant="no-border">
       {data && data.length > 0 ? (

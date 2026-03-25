@@ -1,10 +1,10 @@
+import { Ratios } from "./ratios";
+
 export type Company =  {
   symbol: string;
-  marketCap: number;
+  marketCap: string | number;
   lastDividend: number;
   range: string;
-  change: number;
-  changePercentage: number;
   volume: number;
   averageVolume: number;
   companyName: string;
@@ -25,4 +25,5 @@ export type Company =  {
   zip: string;
   image: string;
   ipoDate: string;
+  ratios?: Ratios;
 }

@@ -1,6 +1,7 @@
 .wrapper {
   display: flex;
   column-gap: 20px;
+  align-items: center;
   padding: 5px 10px;
   border-top: var(--border);
   border-bottom: var(--border);
@@ -19,7 +20,8 @@
 }
 
 .companyName {
-  width: 250px;
+  min-width: 150px;
+  width: max-content;
   font-size: 18px;
 }
 

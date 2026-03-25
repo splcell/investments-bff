@@ -64,7 +64,7 @@ export const loginUser = async (
         sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
         maxAge: 3600000,
       })
-      .send({ mesage: "ok" });
+      .send({ message: "ok" });
   } catch (error) {
     next(error);
   }
@@ -90,7 +90,7 @@ export const updateUser = async (
   const { id, email, username, password } = req.body;
   const userId = res.locals.user.id;
 
-  console.log(req.body, "user")
+  console.log(req.body, "user");
 
   try {
     if (id !== userId.id) {
@@ -129,6 +129,52 @@ export const updateUser = async (
   }
 };
 
+export const getUserCollection = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const id = req.params.id;
+  const userId = res.locals.user.id;
+
+  try {
+    if (id !== userId) {
+      return next(new ForbiddenError("You have no access to this resource"));
+    }
+
+    const currentUser = await User.findById(userId);
+
+    if (!currentUser) {
+      return next(new NotFoundError("Not Found"));
+    }
+
+    return res.json({
+      userCollection: currentUser.userCollection,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const addToUserColldection = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { symbol, companyName, currency } = req.body;
+  const userId = res.locals.user.id;
+
+  try {
+    await User.updateOne(
+      { _id: userId },
+      { $addToSet: { collections: { companyName, currency, symbol } } },
+    );
+
+    res.send({ message: "ok" });
+  } catch (error) {
+    next(error);
+  }
+};
 
 export const deleteUser = async (
   req: Request,

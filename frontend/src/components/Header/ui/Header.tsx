@@ -14,6 +14,7 @@ export const Header = () => {
 
   const logoutHandler = () => {
     logout({}).unwrap()
+    localStorage.removeItem("userId");
     navigate('/login')
   }
 

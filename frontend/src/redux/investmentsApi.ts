@@ -7,6 +7,7 @@ import type { Quote } from "../types/quote";
 import type { FullReport } from "../types/report";
 import type { Dividend } from "../types/dividends";
 import type { News } from "../types/news";
+import type { CollectResponse } from "../types/collect";
 
 const baseAppUrl = "http://localhost:3000";
 
@@ -15,6 +16,8 @@ export const investmentsApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: baseAppUrl,
   }),
+
+  tagTypes: ["Collection"],
 
   endpoints: (build) => ({
     getNews: build.query<any, void>({
@@ -56,6 +59,24 @@ export const investmentsApi = createApi({
 
     getCompanyNews: build.query<News[], {ticker: string}>({
       query: ({ticker}) => `/company/${ticker}/news`
+    }),
+
+    getUserCollection: build.query<CollectResponse, {id: string}>({
+      query: ({id}) => ({
+        url: `/getCollection/${id}`,
+        credentials: "include"
+      }),
+      providesTags: ["Collection"]
+    }),
+
+    addToCollection: build.mutation({
+      query: (body) => ({
+        url: "/collection/add",
+        method: "POST",
+        credentials: "include",
+        body,
+      }),
+      invalidatesTags: ["Collection"]
     }),
 
     userRegister: build.mutation({
@@ -115,6 +136,7 @@ export const {
   useGetCurrentUserQuery,
   useGetCompanyReportsQuery,
   useGetCompanyNewsQuery,
+  useGetUserCollectionQuery,
   useLazyGetCompanyDividendsQuery,
   useLazyGetCompanyInfoQuery,
   useLazyGetCompanyQuoteQuery,
@@ -122,5 +144,6 @@ export const {
   useUserLoginMutation,
   useUserLogoutMutation,
   useUserUpdateMutation,
-  useUserDeleteMutation
+  useUserDeleteMutation,
+  useAddToCollectionMutation
 } = investmentsApi;

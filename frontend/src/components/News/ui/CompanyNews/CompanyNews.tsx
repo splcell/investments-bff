@@ -10,12 +10,14 @@ interface CompanyNewsProps {
   ticker: string;
 }
 
+const boxTitle = "Last company news"
+
 export const CompanyNews = ({ ticker }: CompanyNewsProps) => {
   const { data, isLoading, error } = useGetCompanyNewsQuery({ ticker });
 
   if(isLoading){
     return(
-      <ContentBox title="Last company news">
+      <ContentBox title={boxTitle}>
         <div className={styles.newsWrapper}>
           <Skeleton width={608} height={242}/>
           <Skeleton width={608} height={242}/>
@@ -27,7 +29,7 @@ export const CompanyNews = ({ ticker }: CompanyNewsProps) => {
 
   if(error){
     return(
-      <ContentBox title="Last company news">
+      <ContentBox title={boxTitle}>
         <div className={styles.newsWrapper}>
           <Error>{createError(error)}</Error>
         </div>
@@ -36,7 +38,7 @@ export const CompanyNews = ({ ticker }: CompanyNewsProps) => {
   }
 
   return (
-    <ContentBox title="Last company news">
+    <ContentBox title={boxTitle}>
       <div className={styles.newsWrapper}>
         {data?.map((item) => (
           <NewsItem key={item.id} news={item} isCompany={true} />

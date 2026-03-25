@@ -4,6 +4,7 @@ import { cacheResponse } from "../redis/redis-utils";
 import 'dotenv/config'
 import { NotFoundError } from "../errors/not-found-error";
 import { transformQuote } from '../helpers/transformQuote';
+import { getCompanyRatios } from '../helpers/getCompanyRatios';
 
 const { ALT_API_KEY, ALT_BASE_URL, BASE_URL, API_KEY } = process.env;
 
@@ -24,6 +25,10 @@ export const getCompanyInfo = async(
     }
 
     const returnedData = transformCompanyInfo(data[0])
+
+    const ratios = await getCompanyRatios(ticker)
+
+    returnedData.ratios = ratios
 
     await cacheResponse(res, returnedData)
 
@@ -67,7 +72,7 @@ export const getCompanyDividends = async(
   const ticker = req.params.ticker;
 
   try {
-    const response = await fetch(BASE_URL + `stocks/v1/dividends?ticker=${ticker}&limit=100&sort=ticker.asc&apiKey=${API_KEY}`)
+    const response = await fetch(BASE_URL + `stocks/v1/dividends?ticker=${ticker}&limit=1000&sort=ticker.asc&apiKey=${API_KEY}`)
     const data = await response.json()
 
     if(!data || !data.results.length){

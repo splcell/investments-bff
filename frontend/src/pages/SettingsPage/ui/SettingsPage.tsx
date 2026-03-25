@@ -38,6 +38,7 @@ export const SettingsPage = () => {
 
     try {
       await deleteUser(data.id).unwrap();
+      localStorage.removeItem("userId");
       navigate("/");
     } catch (error) {
       setUserDeleteError(error as string);

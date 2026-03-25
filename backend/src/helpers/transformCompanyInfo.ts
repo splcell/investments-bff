@@ -1,15 +1,14 @@
 import { Company } from "../types/company";
+import { convertData } from "./convertData";
 
 export const transformCompanyInfo = (data: any) => {
   const transformedCompany: Company = {
     symbol: data.symbol,
-    marketCap: data.marketCap,
+    marketCap: String(convertData(data.marketCap)),
     lastDividend: data.lastDividend,
     range: data.range,
-    change: data.change,
-    changePercentage: data.changePercentage,
-    volume: data.volume,
-    averageVolume: data.averageVolume,
+    volume: Number(convertData(data.volume)),
+    averageVolume: Number(convertData(data.averageVolume)),
     companyName: data.companyName,
     currency: data.currency,
     isin: data.isin,
