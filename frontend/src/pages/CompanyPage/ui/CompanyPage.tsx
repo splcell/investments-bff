@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import {
+  useGetCurrentUserQuery,
   useLazyGetCompanyInfoQuery,
   useLazyGetCompanyQuoteQuery,
 } from "../../../redux/investmentsApi";
@@ -15,6 +16,7 @@ import { createError } from "../../../helpers/createError";
 import { Dividends } from "../../../components/Dividends";
 import { Description } from "../../../components/Description";
 import { CompanyNews } from "../../../components/News";
+import { Collection } from "../../../components/Collection";
 
 export const CompanyPage = () => {
   const { ticker } = useParams();
@@ -25,6 +27,8 @@ export const CompanyPage = () => {
     getCompanyQuote,
     { data: quote, isLoading: quoteLoading, error: quoteError },
   ] = useLazyGetCompanyQuoteQuery();
+
+  const { data: me } = useGetCurrentUserQuery();
 
   useEffect(() => {
     if (!ticker) {
@@ -67,6 +71,7 @@ export const CompanyPage = () => {
                 data={quote}
                 loading={isLoading || quoteLoading}
               />
+              {me && me._id && <Collection userId={me._id} profile={data} />}
               {ticker && (
                 <CompanyChart
                   company={data}

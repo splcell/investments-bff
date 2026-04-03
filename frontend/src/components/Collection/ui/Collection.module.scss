@@ -1,0 +1,17 @@
+.collectionWrapper{
+  button{
+    min-height: 25px;
+  }
+}
+
+.deleteBtn {
+  &:hover {
+    background: var(--primary-black) !important;
+    color: var(--white) !important;
+  }
+}
+
+.collectionPreloader{
+  width: 18px;
+  height: 18px;
+}

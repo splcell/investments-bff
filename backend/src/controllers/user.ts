@@ -90,8 +90,6 @@ export const updateUser = async (
   const { id, email, username, password } = req.body;
   const userId = res.locals.user.id;
 
-  console.log(req.body, "user");
-
   try {
     if (id !== userId.id) {
       return next(new ForbiddenError("You have no access to this resource"));
@@ -167,7 +165,31 @@ export const addToUserColldection = async (
   try {
     await User.updateOne(
       { _id: userId },
-      { $addToSet: { collections: { companyName, currency, symbol } } },
+      { $addToSet: { userCollection: { companyName, currency, symbol } } },
+    );
+
+    res.send({ message: "ok" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteFromUserCollection = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const { id, symbol } = req.body;
+  const userId = res.locals.user.id;
+
+  try {
+    if (id !== userId) {
+      next(new ForbiddenError("You have no access to this resource"));
+    }
+
+    await User.updateOne(
+      { _id: userId },
+      { $pull: { userCollection: { symbol: `${symbol}` } } },
     );
 
     res.send({ message: "ok" });

@@ -17,7 +17,7 @@ export const investmentsApi = createApi({
     baseUrl: baseAppUrl,
   }),
 
-  tagTypes: ["Collection"],
+  tagTypes: ["Collection", "User"],
 
   endpoints: (build) => ({
     getNews: build.query<any, void>({
@@ -30,9 +30,10 @@ export const investmentsApi = createApi({
 
     getCurrentUser: build.query<any, void>({
       query: () => ({
-        url: "/cabinet",
+        url: "/cabinet/user",
         credentials: "include",
-      })
+      }),
+      providesTags: ['User']
     }),
 
     getCompanyInfo: build.query<Company, {ticker: string}>({
@@ -66,13 +67,23 @@ export const investmentsApi = createApi({
         url: `/getCollection/${id}`,
         credentials: "include"
       }),
-      providesTags: ["Collection"]
+      providesTags: (result, error, arg) => [{ type: "Collection", id: arg.id }]
     }),
 
     addToCollection: build.mutation({
       query: (body) => ({
         url: "/collection/add",
         method: "POST",
+        credentials: "include",
+        body,
+      }),
+      invalidatesTags: ["Collection"]
+    }),
+
+    deleteToCollection: build.mutation({
+      query: (body) => ({
+        method: "DELETE",
+        url: "/collection/delete",
         credentials: "include",
         body,
       }),
@@ -87,6 +98,8 @@ export const investmentsApi = createApi({
         body,
       }),
 
+      invalidatesTags: ["User"],
+
       transformErrorResponse: (response, meta) => {
         console.log(response, 'res')
         console.log(meta, "meta")
@@ -100,6 +113,7 @@ export const investmentsApi = createApi({
         credentials: "include",
         body,
       }),
+      invalidatesTags: ["User"]
     }),
 
     userLogout: build.mutation({
@@ -108,6 +122,7 @@ export const investmentsApi = createApi({
         method: "POST",
         credentials: "include",
       }),
+      invalidatesTags: ["User"]
     }),
 
     userUpdate: build.mutation({
@@ -117,6 +132,7 @@ export const investmentsApi = createApi({
         credentials: "include",
         body
       }),
+      invalidatesTags: ["User"]
     }),
 
     userDelete: build.mutation({
@@ -125,7 +141,8 @@ export const investmentsApi = createApi({
         method: "DELETE",
         credentials: "include",
         body
-      })
+      }),
+      invalidatesTags: ["User"]
     })
   }),
 });
@@ -145,5 +162,6 @@ export const {
   useUserLogoutMutation,
   useUserUpdateMutation,
   useUserDeleteMutation,
-  useAddToCollectionMutation
+  useAddToCollectionMutation,
+  useDeleteToCollectionMutation
 } = investmentsApi;

@@ -1,24 +1,30 @@
-.btn{
+.btn {
   width: 100%;
   display: inline-flex;
   border-radius: 6px;
   justify-content: center;
   align-items: center;
   column-gap: 10px;
-  transition: .3s all;
+  transition: 0.3s all;
 }
 
-.black{
+.black {
   background: var(--primary-black);
   color: var(--white);
 
-  &:hover{
+  &:hover {
     background: var(--primary-yellow);
     color: var(--primary-black);
   }
 }
 
-.red{
+.red {
   background: var(--negative-bg);
-  color: var(--negative-color)
+  color: var(--negative-color);
+}
+
+.yellow {
+  background: var(--primary-yellow);
+  color: var(--primary-black);
+  font-weight: 500;
 }
