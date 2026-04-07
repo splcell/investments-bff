@@ -70,6 +70,14 @@ export const investmentsApi = createApi({
       providesTags: (result, error, arg) => [{ type: "Collection", id: arg.id }]
     }),
 
+    getFullUserCollection: build.query({
+      query: ({id}) => ({
+        url: `/fullCollection/${id}`,
+        credentials: "include"
+      }),
+      providesTags: (result, error, arg) => [{ type: "User", id: arg.id }]
+    }),
+
     addToCollection: build.mutation({
       query: (body) => ({
         url: "/collection/add",
@@ -87,7 +95,7 @@ export const investmentsApi = createApi({
         credentials: "include",
         body,
       }),
-      invalidatesTags: ["Collection"]
+      invalidatesTags: ["Collection", "User"]
     }),
 
     userRegister: build.mutation({
@@ -154,6 +162,7 @@ export const {
   useGetCompanyReportsQuery,
   useGetCompanyNewsQuery,
   useGetUserCollectionQuery,
+  useGetFullUserCollectionQuery,
   useLazyGetCompanyDividendsQuery,
   useLazyGetCompanyInfoQuery,
   useLazyGetCompanyQuoteQuery,

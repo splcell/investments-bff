@@ -42,6 +42,7 @@ export const Collection = ({ userId, profile }: CollectionProps) => {
       symbol: profile.symbol,
       companyName: profile.companyName,
       currency: profile.currency,
+      companyLogo: profile.image,
       userId,
     }).then(() => {
       console.log(data, "then collection");

@@ -1,0 +1,44 @@
+.collectionTable{
+  width: 100%;
+}
+
+.colllectItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--light-gray);
+  border-bottom: 1px solid var(--secondary-black);
+  padding: 0 10px;
+  cursor: pointer;
+
+  img {
+    width: 30px;
+    height: 30px;
+  }
+
+  td {
+    width: max-content;
+    min-width: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    padding: 10px 0;
+    &:first-child, &:last-child {
+      width: max-content;
+      min-width: auto;
+    }
+
+    button {
+      display: flex;
+      width: 60px;
+      justify-content: center;
+      align-items: center;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}

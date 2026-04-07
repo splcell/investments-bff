@@ -7,6 +7,8 @@ import { ConflictError } from "../errors/conflict-error";
 import "dotenv/config";
 import ForbiddenError from "../errors/forbidden-error";
 import { NotFoundError } from "../errors/not-found-error";
+import { getMassiveQuotes } from "../helpers/getMassiveQuotes";
+import { cacheResponse } from "../redis/redis-utils";
 
 export const createUser = async (
   req: Request,
@@ -154,18 +156,61 @@ export const getUserCollection = async (
   }
 };
 
+export const getFullUserCollection = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const id = req.params.id;
+  const userId = res.locals.user.id;
+
+  try {
+    if (id !== userId) {
+      return next(new ForbiddenError("You have no access to this resource"));
+    }
+
+    const currentUser = await User.findById(userId).lean();
+    const collection = currentUser?.userCollection;
+    const symbols = collection?.map((item) => item.symbol);
+
+    if (!symbols) {
+      return;
+    }
+
+    const quotes = await Promise.all(
+      symbols.map((symbol) => getMassiveQuotes(symbol)),
+    );
+
+    const convertedQuotes = quotes.flat()
+
+    console.log(convertedQuotes, 'quotes')
+
+    const result = collection?.map((item) => ({
+      ...item,
+      price: convertedQuotes.find((q) => q.symbol === item.symbol)?.price,
+      change: convertedQuotes.find((q) => q.symbol === item.symbol)?.change,
+      changePercentage: convertedQuotes.find((q) => q.symbol === item.symbol)?.changePercentage,
+    }));
+
+    res.json(result)
+
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const addToUserColldection = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
-  const { symbol, companyName, currency } = req.body;
+  const { symbol, companyName, currency, companyLogo } = req.body;
   const userId = res.locals.user.id;
 
   try {
     await User.updateOne(
       { _id: userId },
-      { $addToSet: { userCollection: { companyName, currency, symbol } } },
+      { $addToSet: { userCollection: { companyName, currency, symbol, companyLogo } } },
     );
 
     res.send({ message: "ok" });

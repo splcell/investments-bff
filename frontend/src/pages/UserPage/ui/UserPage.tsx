@@ -1,5 +1,18 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { useOutletContext } from "react-router-dom"
+import { Container } from "../../../components/Container"
+import { ContentBox } from "../../../components/ContentBox"
+import { FullCollection } from "../../../components/FullCollection";
+
 export const UserPage = () => {
+  //@ts-ignore
+  const { data } = useOutletContext();
+
   return(
-    <h1>User page</h1>
+    <Container>
+      <ContentBox title="Your Stocks Collection">
+       <FullCollection userId={data._id}/>
+      </ContentBox>
+    </Container>
   )
 }

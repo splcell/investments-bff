@@ -63,7 +63,8 @@ const userSchema = new Schema(
       {
         companyName: String,
         currency: String,
-        symbol: String
+        symbol: String,
+        companyLogo: String
       }
     ]
   },
